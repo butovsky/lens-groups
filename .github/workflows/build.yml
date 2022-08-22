@@ -46,19 +46,19 @@ jobs:
       - name: See runtime URL
         shell: bash
         run: |
-          echo The result is ${{ env.ACTIONS_RUNTIME_URL }}
+          echo The result is ${{ env.GITHUB_SERVER_URL }}
 
       - name: Save artifacts
         run: npm run artifact:upload
         env: 
           ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTIONS_RUNTIME_URL: $ACTIONS_RUNTIME_URL
+          ACTIONS_RUNTIME_URL: ${{ env.GITHUB_SERVER_URL }}
       
       - name: Download the artifact
         run: npm run artifact:download
         env: 
           ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTIONS_RUNTIME_URL: $ACTIONS_RUNTIME_URL
+          ACTIONS_RUNTIME_URL: ${{ env.GITHUB_SERVER_URL }}
       
       - name: Print the artifact
         shell: bash
