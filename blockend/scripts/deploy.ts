@@ -18,9 +18,6 @@ async function main() {
   saveArtifact("contractAddress.txt", lock.address);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-
 /* eslint-disable unicorn/prefer-top-level-await */
 main().catch((error) => {
   console.error(error);
