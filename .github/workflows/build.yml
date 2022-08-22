@@ -43,7 +43,8 @@ jobs:
           touch .env
           echo DEPLOYER_PRIVATE_KEY=${{ secrets.DEPLOYER_PRIVATE_KEY }} >> .env
           echo GOERLI_URL=${{ secrets.GOERLI_URL }} >> .env
-          echo ACTIONS_RUNTIME_TOKEN=${{ secrets.ACTIONS_RUNTIME_TOKEN }} >> .env
+          echo ACTIONS_RUNTIME_TOKEN=${{ secrets.GITHUB_TOKEN }} >> .env
+          echo ACTIONS_RUNTIME_URL=${{ secrets.ACTIONS_RUNTIME_URL }} >> .env
       
       - name: Deploy the contract
         run: npm run deploy
