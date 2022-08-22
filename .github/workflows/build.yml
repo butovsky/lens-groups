@@ -42,26 +42,10 @@ jobs:
         env:
           DEPLOYER_PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
           GOERLI_URL: ${{ secrets.GOERLI_URL }}
-      
-      - name: See runtime URL
-        shell: bash
-        run: |
-          echo The result is ${{ env.GITHUB_SERVER_URL }}
 
-      - name: Save artifacts
-        run: npm run artifact:upload
-        env: 
-          ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTIONS_RUNTIME_URL: ${{ env.GITHUB_SERVER_URL }}
-      
-      - name: Download the artifact
-        run: npm run artifact:download
-        env: 
-          ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTIONS_RUNTIME_URL: ${{ env.GITHUB_SERVER_URL }}
-      
-      - name: Print the artifact
-        shell: bash
-        run: |
-          value=`cat artifacts/github/testArtifact/contractAddress.txt`
-          echo The result is $value
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          path: |
+            blockend/artifacts/github
