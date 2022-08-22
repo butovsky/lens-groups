@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      paths:
+    paths:
       - blockend
   pull_request:
     branches:
