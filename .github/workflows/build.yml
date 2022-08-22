@@ -31,11 +31,6 @@ jobs:
         with:
           node-version: 16
 
-      - name: See runtime URL
-        shell: bash
-        run: |
-          echo The result is $GITHUB_SERVER_URL
-
       - name: Install Node.js dependencies
         run: npm ci
 
@@ -52,13 +47,13 @@ jobs:
         run: npm run artifact:upload
         env: 
           ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTIONS_RUNTIME_URL: $GITHUB_SERVER_URL
+          ACTIONS_RUNTIME_URL: "https://pipelines.actions.githubusercontent.com/"
       
       - name: Download the artifact
         run: npm run artifact:download
         env: 
           ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTIONS_RUNTIME_URL: $GITHUB_SERVER_URL
+          ACTIONS_RUNTIME_URL: "https://pipelines.actions.githubusercontent.com/"
       
       - name: Print the artifact
         shell: bash
