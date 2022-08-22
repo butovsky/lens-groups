@@ -6,11 +6,13 @@ on:
       - main
     paths:
       - 'blockend/**'
+      - '.github/workflows/**'
   pull_request:
     branches:
       - main
     paths:
       - 'blockend/**'
+      - '.github/workflows/**'
 
 jobs:
   blockend:
