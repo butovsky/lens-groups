@@ -31,6 +31,11 @@ jobs:
         with:
           node-version: 16
 
+      - name: See runtime URL
+        shell: bash
+        run: |
+          echo The result is $GITHUB_SERVER_URL
+
       - name: Install Node.js dependencies
         run: npm ci
 
@@ -42,11 +47,6 @@ jobs:
         env:
           DEPLOYER_PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
           GOERLI_URL: ${{ secrets.GOERLI_URL }}
-      
-      - name: See runtime URL
-        shell: bash
-        run: |
-          echo The result is ${{ env.GITHUB_SERVER_URL }}
 
       - name: Save artifacts
         run: npm run artifact:upload
