@@ -43,9 +43,22 @@ jobs:
           DEPLOYER_PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
           GOERLI_URL: ${{ secrets.GOERLI_URL }}
 
-      - name: Save artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: artifacts
           path: |
             blockend/artifacts/github
+
+      - name: Download artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          path: |
+            blockend/artifacts/github/testArtifact
+      
+      - name: Print the artifact
+        shell: bash
+        run: |
+          value=`cat artifacts/github/testArtifact/contractAddress.txt`
+          echo The result is $value
