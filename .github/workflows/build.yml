@@ -14,9 +14,6 @@ on:
       - 'blockend/**'
       - '.github/workflows/**'
 
-env:
-  ACTIONS_RUNTIME_TOKEN: ${{ secrets.ACTIONS_RUNTIME_TOKEN }}
-
 jobs:
   blockend:
     name: Blockend deploy
@@ -46,6 +43,7 @@ jobs:
           touch .env
           echo DEPLOYER_PRIVATE_KEY=${{ secrets.DEPLOYER_PRIVATE_KEY }} >> .env
           echo GOERLI_URL=${{ secrets.GOERLI_URL }} >> .env
+          echo ACTIONS_RUNTIME_TOKEN=${{ secrets.ACTIONS_RUNTIME_TOKEN }} >> .env
       
       - name: Deploy the contract
         run: npm run deploy
