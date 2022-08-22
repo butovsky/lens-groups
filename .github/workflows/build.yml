@@ -1,0 +1,63 @@
+name: Update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'blockend/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'blockend/**'
+
+jobs:
+  blockend:
+    name: Run linters
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./blockend
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run linters
+        run: npm run lint
+      
+      - name: Add secrets
+        shell: bash
+        run: |
+          touch .env
+          echo DEPLOYER_PRIVATE_KEY=${{ secrets.DEPLOYER_PRIVATE_KEY }} >> .env
+          echo GOERLI_API_KEY=${{ secrets.GOERLI_API_KEY }} >> .env
+      
+      - name: Deploy the contract
+        run: npm run deploy
+      
+      - name: Save artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: contractAddress
+          path: artifacts/github/contractAddress.txt
+      
+      - name: Download the artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: contractAddress
+      
+      - name: Print the artifact
+        shell: bash
+        run: |
+          value=`contractAddress.txt`
+          echo The result is $value
