@@ -14,6 +14,10 @@ on:
       - 'blockend/**'
       - '.github/workflows/**'
 
+env: 
+  ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  ACTIONS_RUNTIME_URL: ${{ env.ACTIONS_RUNTIME_URL }}
+
 jobs:
   blockend:
     name: Blockend deploy
@@ -22,12 +26,6 @@ jobs:
       run:
         working-directory: ./blockend
 
-    env:
-      DEPLOYER_PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
-      GOERLI_URL: ${{ secrets.GOERLI_URL }}
-      ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      ACTIONS_RUNTIME_URL: ${{ secrets.ACTIONS_RUNTIME_URL }}
-      
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
@@ -45,6 +43,9 @@ jobs:
       
       - name: Deploy the contract
         run: npm run deploy
+        env:
+          DEPLOYER_PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
+          GOERLI_URL: ${{ secrets.GOERLI_URL }}
       
       - name: Save artifacts
         run: npm run artifact:upload
