@@ -1,27 +1,28 @@
 name: Lint
 
 on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
   push:
     branches:
       - main
+      paths:
+      - blockend
   pull_request:
     branches:
       - main
+    paths:
+      - blockend
 
 jobs:
   run-linters:
     name: Run linters
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./blockend
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
-
-      - name: Check out blockend folder
-      - run: |
-        cd blockend
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
