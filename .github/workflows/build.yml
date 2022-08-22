@@ -22,6 +22,12 @@ jobs:
       run:
         working-directory: ./blockend
 
+    env:
+      DEPLOYER_PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
+      GOERLI_URL: ${{ secrets.GOERLI_URL }}
+      ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ACTIONS_RUNTIME_URL: ${{ secrets.ACTIONS_RUNTIME_URL }}
+      
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
@@ -36,15 +42,6 @@ jobs:
 
       - name: Run linters
         run: npm run lint
-      
-      - name: Add secrets
-        shell: bash
-        run: |
-          touch .env
-          echo DEPLOYER_PRIVATE_KEY=${{ secrets.DEPLOYER_PRIVATE_KEY }} >> .env
-          echo GOERLI_URL=${{ secrets.GOERLI_URL }} >> .env
-          echo ACTIONS_RUNTIME_TOKEN=${{ secrets.GITHUB_TOKEN }} >> .env
-          echo ACTIONS_RUNTIME_URL=${{ secrets.ACTIONS_RUNTIME_URL }} >> .env
       
       - name: Deploy the contract
         run: npm run deploy
