@@ -44,19 +44,8 @@ jobs:
           GOERLI_URL: ${{ secrets.GOERLI_URL }}
 
       - name: Save artifacts
-        run: npm run artifact:upload
-        env: 
-          ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTIONS_RUNTIME_URL: "https://pipelines.actions.githubusercontent.com/"
-      
-      - name: Download the artifact
-        run: npm run artifact:download
-        env: 
-          ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTIONS_RUNTIME_URL: "https://pipelines.actions.githubusercontent.com/"
-      
-      - name: Print the artifact
-        shell: bash
-        run: |
-          value=`cat artifacts/github/testArtifact/contractAddress.txt`
-          echo The result is $value
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          path: |
+            blockend/artifacts/github
