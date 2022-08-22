@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint '**/*.{ts,tsx}' --fix"
+    "lint": "eslint '**/*.{ts,tsx}' --fix",
+    "help": "npx hardhat help",
+    "node": "npx hardhat node"
   },
   "keywords": [],
   "author": "",
