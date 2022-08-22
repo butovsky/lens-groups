@@ -1,4 +1,5 @@
-import * as path from 'path'
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 
-export const BLOCKEND_FOLDER = __dirname;
-export const ARTIFACTS_FOLDER = path.resolve(BLOCKEND_FOLDER, 'artifacts');
+export const BLOCKEND_FOLDER = path.dirname(fileURLToPath(import.meta.url));
+export const ARTIFACTS_FOLDER = path.resolve(BLOCKEND_FOLDER, "artifacts");

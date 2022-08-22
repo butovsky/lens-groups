@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import saveArtifact from "../utils/saveArtifact";
+import saveArtifact from "../utils/save-artifact";
 
 async function main() {
   const currentTimestampInSeconds = Math.round(Date.now() / 1000);
@@ -12,15 +12,17 @@ async function main() {
   await lock.deployed();
 
   console.log(
-    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`,
+    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
   );
 
-  saveArtifact('contractAddress.txt', lock.address);
+  saveArtifact("contractAddress.txt", lock.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
-main().catch((error) => {
+try {
+  await main();
+} catch (error) {
   console.error(error);
   process.exitCode = 1;
-});
+}
