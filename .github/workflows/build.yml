@@ -49,9 +49,10 @@ jobs:
       
       - name: Save artifacts
         uses: actions/upload-artifact@v3
+        working-directory: ./blockend
         with:
           name: contractAddress
-          path: blockend/artifacts/github/contractAddress.txt
+          path: artifacts/github/contractAddress.txt
       
       - name: Download the artifact
         uses: actions/download-artifact@v3
