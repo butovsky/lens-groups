@@ -48,20 +48,13 @@ jobs:
         run: npm run deploy
       
       - name: Save artifacts
-        uses: actions/upload-artifact@v3
-        working-directory: ./blockend
-        with:
-          name: contractAddress
-          path: artifacts/github/contractAddress.txt
+        run: npm run artifact:upload
       
       - name: Download the artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: contractAddress
-          path: contractAddress.txt
+        run: npm run artifact:download
       
       - name: Print the artifact
         shell: bash
         run: |
-          value=`cat contractAddress.txt`
+          value=`cat artifacts/github/testArtifact/contractAddress.txt`
           echo The result is $value

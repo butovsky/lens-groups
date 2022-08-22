@@ -3,11 +3,11 @@ import * as path from "node:path";
 
 import { ARTIFACTS_GITHUB_FOLDER } from "../constants";
 
-interface Artifacts {
+export interface Artifacts {
   "contractAddress.txt": string;
 }
 
-const saveArtifact = <Key extends keyof Artifacts>(
+const createArtifact = <Key extends keyof Artifacts>(
   fileName: Key,
   value: Artifacts[Key]
 ) => {
@@ -15,4 +15,4 @@ const saveArtifact = <Key extends keyof Artifacts>(
   fs.writeFileSync(path.resolve(ARTIFACTS_GITHUB_FOLDER, fileName), value);
 };
 
-export default saveArtifact;
+export default createArtifact;

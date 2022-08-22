@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import saveArtifact from "../utils/save-artifact";
+import createArtifact from "../utils/create-artifact";
 
 async function main() {
   const currentTimestampInSeconds = Math.round(Date.now() / 1000);
@@ -15,7 +15,7 @@ async function main() {
     `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
   );
 
-  saveArtifact("contractAddress.txt", lock.address);
+  createArtifact("contractAddress.txt", lock.address);
 }
 
 /* eslint-disable unicorn/prefer-top-level-await */
