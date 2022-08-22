@@ -46,9 +46,8 @@ jobs:
       - name: See runtime URL
         shell: bash
         run: |
-          value=$ACTIONS_RUNTIME_URL
-          echo The result is $value
-          
+          echo The result is ${{ env.ACTIONS_RUNTIME_URL }}
+
       - name: Save artifacts
         run: npm run artifact:upload
         env: 
