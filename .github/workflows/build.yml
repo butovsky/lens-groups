@@ -57,6 +57,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: contractAddress
+          path: contractAddress.txt
       
       - name: Print the artifact
         shell: bash
