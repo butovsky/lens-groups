@@ -52,13 +52,13 @@ jobs:
         run: npm run artifact:upload
         env: 
           ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTIONS_RUNTIME_URL: ${{ env.GITHUB_SERVER_URL }}
+          ACTIONS_RUNTIME_URL: $GITHUB_SERVER_URL
       
       - name: Download the artifact
         run: npm run artifact:download
         env: 
           ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTIONS_RUNTIME_URL: ${{ env.GITHUB_SERVER_URL }}
+          ACTIONS_RUNTIME_URL: $GITHUB_SERVER_URL
       
       - name: Print the artifact
         shell: bash
