@@ -22,10 +22,6 @@ jobs:
       run:
         working-directory: ./blockend
 
-    env: 
-      ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      ACTIONS_RUNTIME_URL: ${{ secrets.ACTIONS_RUNTIME_URL }}
-
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
@@ -49,9 +45,15 @@ jobs:
       
       - name: Save artifacts
         run: npm run artifact:upload
+        env: 
+          ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTIONS_RUNTIME_URL: ${{ env.ACTIONS_RUNTIME_URL }}
       
       - name: Download the artifact
         run: npm run artifact:download
+        env: 
+          ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTIONS_RUNTIME_URL: ${{ env.ACTIONS_RUNTIME_URL }}
       
       - name: Print the artifact
         shell: bash
