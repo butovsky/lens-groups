@@ -43,6 +43,12 @@ jobs:
           DEPLOYER_PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
           GOERLI_URL: ${{ secrets.GOERLI_URL }}
       
+      - name: See runtime URL
+        shell: bash
+        run: |
+          value=$ACTIONS_RUNTIME_URL
+          echo The result is $value
+          
       - name: Save artifacts
         run: npm run artifact:upload
         env: 
