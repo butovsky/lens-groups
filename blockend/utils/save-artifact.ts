@@ -11,16 +11,8 @@ const saveArtifact = <Key extends keyof Artifacts>(
   fileName: Key,
   value: Artifacts[Key]
 ) => {
-  fs.mkdir(ARTIFACTS_GITHUB_FOLDER, { recursive: true }, (error) => {
-    if (error) throw error;
-  });
-  fs.writeFile(
-    path.resolve(ARTIFACTS_GITHUB_FOLDER, fileName),
-    value,
-    (error) => {
-      if (error) throw error;
-    }
-  );
+  fs.mkdirSync(ARTIFACTS_GITHUB_FOLDER, { recursive: true });
+  fs.writeFileSync(path.resolve(ARTIFACTS_GITHUB_FOLDER, fileName), value);
 };
 
 export default saveArtifact;
