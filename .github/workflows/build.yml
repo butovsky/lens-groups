@@ -21,10 +21,10 @@ jobs:
     defaults:
       run:
         working-directory: ./blockend
-        
+
     env: 
       ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      ACTIONS_RUNTIME_URL: ${{ env.ACTIONS_RUNTIME_URL }}
+      ACTIONS_RUNTIME_URL: ${{ secrets.ACTIONS_RUNTIME_URL }}
 
     steps:
       - name: Check out Git repository
