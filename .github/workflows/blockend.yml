@@ -1,4 +1,4 @@
-name: Update
+name: Blockend CI
 
 on:
   push:
@@ -6,17 +6,17 @@ on:
       - main
     paths:
       - 'blockend/**'
-      - '.github/workflows/**'
+      - '.github/workflows/blockend.yml'
   pull_request:
     branches:
       - main
     paths:
       - 'blockend/**'
-      - '.github/workflows/**'
+      - '.github/workflows/blockend.yml'
 
 jobs:
-  blockend:
-    name: Blockend deploy
+  check:
+    name: Set up checks
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -36,16 +36,29 @@ jobs:
 
       - name: Run linters
         run: npm run lint
-      
+    
+  deploy:
+    name: Deploy the contract on Goerli
+    runs-on: ubuntu-latest
+    environment: staging
+    defaults:
+      run:
+        working-directory: ./blockend
+    
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
       - name: Deploy the contract
-        run: npm run deploy
+        run: npm run deploy --network goerli
         env:
           DEPLOYER_PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
           GOERLI_URL: ${{ secrets.GOERLI_URL }}
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: artifacts
-          path: |
-            blockend/artifacts/github
