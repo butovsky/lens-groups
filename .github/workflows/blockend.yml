@@ -61,7 +61,7 @@ jobs:
         run: npm ci
 
       - name: Deploy the contract
-        run: npm run deploy --network goerli
+        run: npm run deploy:goerli
         env:
           DEPLOYER_PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
           GOERLI_URL: ${{ secrets.GOERLI_URL }}
