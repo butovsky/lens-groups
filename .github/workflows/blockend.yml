@@ -40,7 +40,7 @@ jobs:
     
   deploy:
     needs: check
-    if: github.event_name == 'repository_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     name: Deploy the contract on Goerli
     runs-on: ubuntu-latest
     environment: staging
