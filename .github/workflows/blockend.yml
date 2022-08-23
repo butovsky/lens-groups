@@ -1,4 +1,4 @@
-name: Blockend Checks
+name: Blockend
 
 on:
   push:
@@ -7,24 +7,13 @@ on:
     paths:
       - 'blockend/**'
       - '.github/workflows/blockend.yml'
-
   pull_request:
     branches:
       - main
     paths:
       - 'blockend/**'
       - '.github/workflows/blockend.yml'
-
   workflow_dispatch:
-    inputs:
-      privateKey:
-        description: 'Private key for the EVM address (deploying on Goerli)'
-        type: string
-        required: true
-      goerliUrl:
-        desctiption: 'E.g. Alchemy Goerli URL with API_KEY in it'
-        type: string
-        required: true
 
 jobs:
   check:
@@ -51,7 +40,7 @@ jobs:
     
   deploy:
     needs: check
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'repository_dispatch'
     name: Deploy the contract on Goerli
     runs-on: ubuntu-latest
     environment: staging
@@ -74,5 +63,5 @@ jobs:
       - name: Deploy the contract
         run: npm run deploy --network goerli
         env:
-          DEPLOYER_PRIVATE_KEY: ${{ secrets[github.event.inputs.privateKey] }}
-          GOERLI_URL: ${{ secrets[github.event.inputs.goerliUrl] }}
+          DEPLOYER_PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
+          GOERLI_URL: ${{ secrets.GOERLI_URL }}
